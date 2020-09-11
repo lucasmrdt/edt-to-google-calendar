@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 import pandas as pd
@@ -130,6 +130,7 @@ def main():
     rename_columns(df)
     timetable = extract_timetable(df, args)
     pd.DataFrame(timetable).to_csv(args.output, index=False, header=True)
+    print(f'✅ Your \'{args.output}\' file is ready to be imported on google calendar.')
 
 if __name__ == '__main__':
     main()
