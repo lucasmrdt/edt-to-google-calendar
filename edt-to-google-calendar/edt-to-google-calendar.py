@@ -111,21 +111,24 @@ def extract_timetable(df, groups):
     return timetable
 
 
-parser = argparse.ArgumentParser(description="Generate a google calendra .csv file from your student timetable")
+parser = argparse.ArgumentParser(description="Quickly convert your student timetable into google calendar events")
 parser.add_argument('file',type=parse_file,  help='student timetable in .xlsx')
-parser.add_argument('--algo', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='algorithm group', default='g1')
-parser.add_argument('--log', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='logical group', default='g1')
-parser.add_argument('--pfa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='pfa group', default='g1')
-parser.add_argument('--gla', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='gla group', default='g1')
-parser.add_argument('--net', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='network group', default='g1')
-parser.add_argument('--sys', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='system group', default='g1')
-parser.add_argument('--comp', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='compilation group', default='g1')
-parser.add_argument('--oa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='O&A group', default='g1')
+parser.add_argument('--algo', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='algorithm group')
+parser.add_argument('--log', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='logical group')
+parser.add_argument('--pfa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='pfa group')
+parser.add_argument('--gla', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='gla group')
+parser.add_argument('--net', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='network group')
+parser.add_argument('--sys', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='system group')
+parser.add_argument('--comp', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='compilation group')
+parser.add_argument('--oa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='O&A group')
 parser.add_argument('--output', type=str, default='timetable.csv', help='.csv output file')
 
 
 def main():
     args = parser.parse_args()
+    used_keys = filter(lambda x: args.__getattribute__(x), ['algo', 'log', 'pfa', 'gla', 'net', 'sys', 'comp', 'oa'])
+    a = ', '.join(f'{k}={args.__getattribute__(k)}' for k in used_keys)
+    print(f'Converting \'{args.file}\' into google calendar events with :\n{a}', end='\n\n')
     df = pd.read_excel(args.file)
     rename_columns(df)
     timetable = extract_timetable(df, args)
