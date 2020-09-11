@@ -8,8 +8,6 @@
 
 ## Table of Contents
 
-> If your `README` has a lot of info, section headers might be nice.
-
 - [Installation](#installation)
 - [Usage](#usage)
 - [Example](#example)
@@ -95,8 +93,6 @@ algo=g1, log=g1, pfa=g3, gla=g1, net=g1, sys=g2
 - [ ] Abstract timetable parsing
 
 Fell free to add more usefull features, test it and report issues.
-
-- You should probably resize their picture using `?s=200` at the end of the image URL.
 
 ## Support
 
