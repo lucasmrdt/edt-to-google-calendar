@@ -53,9 +53,9 @@ def extract_timetable(df, groups):
         'gla': groups.gla,
         'pfa': groups.pfa,
         'sys': groups.sys,
-        'log': groups.log
-        'compilation': groups.comp
-        'o&a': groups.oa
+        'log': groups.log,
+        'compilation': groups.comp,
+        'o&a': groups.oa,
     }
     timetable = {
         'Subject': [],
