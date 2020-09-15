@@ -88,8 +88,8 @@ def extract_timetable(df, groups):
         for key, group in permissions_mapper.items():
             if key in content:
                 if not group:
-                    print(f'Warning: We found an activity but you don\'t provide any groups ({key})')
-                    return False
+                    print(f'Warning: We found an activity but you don\'t provide any groups, so it\'ll be added by default ({key})')
+                    return True
                 return group in content
 
     def parse_row(row_items):
