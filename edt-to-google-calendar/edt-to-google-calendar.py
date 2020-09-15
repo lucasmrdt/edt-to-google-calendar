@@ -87,6 +87,9 @@ def extract_timetable(df, groups):
             return True
         for key, group in permissions_mapper.items():
             if key in content:
+                if not group:
+                    print(f'Warning: We found an activity but you don\'t provide any groups ({key})')
+                    return False
                 return group in content
 
     def parse_row(row_items):
@@ -115,14 +118,14 @@ def extract_timetable(df, groups):
 
 parser = argparse.ArgumentParser(description="Quickly convert your student timetable into google calendar events")
 parser.add_argument('file',type=parse_file,  help='student timetable in .xlsx')
-parser.add_argument('--algo', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='algorithm group')
-parser.add_argument('--log', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='logical group')
-parser.add_argument('--pfa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='pfa group')
-parser.add_argument('--gla', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='gla group')
-parser.add_argument('--net', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='network group')
-parser.add_argument('--sys', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='system group')
-parser.add_argument('--comp', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='compilation group')
-parser.add_argument('--oa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6'], help='O&A group')
+parser.add_argument('--algo', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='algorithm group')
+parser.add_argument('--log', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='logical group')
+parser.add_argument('--pfa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='pfa group')
+parser.add_argument('--gla', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='gla group')
+parser.add_argument('--net', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='network group')
+parser.add_argument('--sys', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='system group')
+parser.add_argument('--comp', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='compilation group')
+parser.add_argument('--oa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='O&A group')
 parser.add_argument('--output', type=str, default='timetable.csv', help='.csv output file')
 
 
