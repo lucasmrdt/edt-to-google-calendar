@@ -1,10 +1,10 @@
 ![](./assets/preview.png)
+
 # ![](https://img.shields.io/badge/status-beta-orange) Timetable into Google calendar
 
 > Quickly convert your student timetable into google calendar events.
 
-
-![](https://img.shields.io/badge/linux-OK-green) ![](https://img.shields.io/badge/mac-not_tested-orange) ![](https://img.shields.io/badge/windows-not_tested-orange) 
+![](https://img.shields.io/badge/linux-OK-green) ![](https://img.shields.io/badge/mac-OK-green) ![](https://img.shields.io/badge/windows-not_tested-orange)
 
 ## Table of Contents
 
@@ -79,16 +79,17 @@ algo=g1, log=g1, pfa=g3, gla=g1, net=g1, sys=g2
 ## FAQ
 
 - How I can import my generated google calendar events ?
-    - Look at [here](https://support.google.com/calendar/answer/37118?co=GENIE.Platform%3DDesktop&hl=en). *I advice you to import all theses events into a new calendar.*
+
+  - Look at [here](https://support.google.com/calendar/answer/37118?co=GENIE.Platform%3DDesktop&hl=en). _I advice you to import all theses events into a new calendar._
 
 - How to convert my timetable `.pdf` file into `.xlsx` ?
-    - I recommend to use [pdftoexcelonline](https://www.pdftoexcelonline.com/). It works well for ParisSaclay timetable.
+  - I recommend to use [pdftoexcelonline](https://www.pdftoexcelonline.com/). It works well for ParisSaclay timetable.
 
 ---
 
 ## Contributing
 
-- [ ] Test on mac
+- [x] Test on mac
 - [ ] Test on windows
 - [ ] Abstract timetable parsing
 
@@ -106,4 +107,3 @@ Reach out to me at one of the following places!
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-
