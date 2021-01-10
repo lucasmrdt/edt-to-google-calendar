@@ -10,8 +10,9 @@ from datetime import datetime, date, timedelta
 
 CUSTOM_TIME_RANGE_EXPR = r'^@\[(\d+:\d+ \d+:\d+)\]'
 BEGIN_HOUR = '9:00'
-BEGIN_ROW = 6
+BEGIN_ROW = 3
 DATE_COLUMN = 'Date'
+BLACKLISTED_CLASSES = ['web', 'theorique', 'interfaces']
 
 
 def normalize_string(string):
@@ -61,6 +62,13 @@ def extract_timetable(df, groups):
         'log': groups.log,
         'compilation': groups.comp,
         'o&a': groups.oa,
+        'formel': groups.form,
+        'bd': groups.bd2,
+        'piia': None,
+        'ias': groups.ias,
+        'ia': groups.ia,
+        'optimisation': groups.ioc,
+        'ibi': None,
     }
     timetable = {
         'Subject': [],
@@ -88,14 +96,17 @@ def extract_timetable(df, groups):
     def is_concern_by_activity(activity):
         nonlocal permissions_mapper
         content = normalize_string(activity.lower())
-        if not 'tp' in content and not 'td' in content:
+        for blacklisted_class in BLACKLISTED_CLASSES:
+            if blacklisted_class in content:
+                return False
+        if not 'tp' in content and not 'td' in content and not 'projet' in content:
             return True
         for key, group in permissions_mapper.items():
             if key in content:
                 if not group:
                     print(
                         f'Warning: We found an activity but you don\'t provide any groups, so it\'ll be added by default ({key})')
-                    return True
+                    return False
                 return group in content
 
     def parse_row(row_items):
@@ -144,6 +155,16 @@ parser.add_argument(
     '--comp', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='compilation group')
 parser.add_argument(
     '--oa', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='O&A group')
+parser.add_argument(
+    '--form', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='formal language group')
+parser.add_argument(
+    '--bd2', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='BD2 group')
+parser.add_argument(
+    '--ias', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='IAS group')
+parser.add_argument(
+    '--ia', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='IA group')
+parser.add_argument(
+    '--ioc', type=str, choices=['g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8'], help='IOC group')
 parser.add_argument('--output', type=str,
                     default='timetable.csv', help='.csv output file')
 
@@ -151,7 +172,7 @@ parser.add_argument('--output', type=str,
 def main():
     args = parser.parse_args()
     used_keys = filter(lambda x: args.__getattribute__(x),
-                       ['algo', 'log', 'pfa', 'gla', 'net', 'sys', 'comp', 'oa'])
+                       ['algo', 'log', 'pfa', 'gla', 'net', 'sys', 'comp', 'oa', 'form', 'bd2'])
     a = ', '.join(f'{k}={args.__getattribute__(k)}' for k in used_keys)
     print(
         f'Converting \'{args.file}\' into google calendar events with :\n{a}', end='\n\n')
